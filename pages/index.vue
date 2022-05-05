@@ -35,7 +35,7 @@ export default {
       accessToken:
         "pk.eyJ1IjoiZGl2eWFuNWgiLCJhIjoiY2wyc3EzeWhvMDEzeDNrbjJndHNxNG9kMiJ9.xz5kTfAAHPpP0kG3P_qzHg",
       container: "map",
-      style: "mapbox://styles/mapbox/streets-v11",
+      style: "mapbox://styles/mapbox/light-v9",
       center: [77.2, 28.6],
       zoom: 3,
       pitch: 0,
