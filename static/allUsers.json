@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Pankaj",
+    "photoUrl": "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80",
+    "location": {
+      "lng": "77.2",
+      "lat": "28.6"
+    }
+  },
+  {
+    "name": "Ash",
+    "photoUrl": "https://images.unsplash.com/photo-1581456495146-65a71b2c8e52?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=386&q=80",
+    "location": {
+      "lng": "28.6",
+      "lat": "77.2"
+    }
+  },
+  {
+    "name": "Alex",
+    "photoUrl": "https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60",
+    "location": {
+      "lng": "98.6",
+      "lat": "17.2"
+    }
+  },
+  {
+    "name": "Raghav",
+    "photoUrl": "https://images.unsplash.com/photo-1555952517-2e8e729e0b44?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80",
+    "location": {
+      "lng": "58.6",
+      "lat": "37.2"
+    }
+  },
+  {
+    "name": "Pablo",
+    "photoUrl": "https://images.unsplash.com/photo-1545996124-0501ebae84d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80",
+    "location": {
+      "lng": "48.6",
+      "lat": "27.2"
+    }
+  }
+]
