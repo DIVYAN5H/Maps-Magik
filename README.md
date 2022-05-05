@@ -1,7 +1,7 @@
 # Maps-Magik
 
 ## Description
-[Live Project] here: https://nimble-dodol-f0b632.netlify.app/
+[Live Project]: https://nimble-dodol-f0b632.netlify.app/ here 
 This repositry contains a project for Magik.so
 
 ## Progress
