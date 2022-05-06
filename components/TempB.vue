@@ -4,9 +4,9 @@
       Sidebar Toggle
     </div>
     <div v-if="isSideVisible" id="sidebar-list">
-      <div v-for="user in allMarkers" class="sidebar-list-card">
-        <img :src="user.photoUrl" class="sidebar-list-card-photo" />
-        {{ user.name }}
+      <div v-for="user in allMarkers" class="sidebar-list-card" :key="user.id">
+        <img :src="user.photo" class="sidebar-list-card-photo" />
+        {{ user.fullName }}
       </div>
     </div>
   </div>
@@ -41,6 +41,8 @@ export default {
   background: white;
   padding: 10px;
   border-radius: 5px;
+  height: 600px;
+  overflow-y: scroll;
 }
 .sidebar-list-card {
   cursor: pointer;
