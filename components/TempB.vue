@@ -32,7 +32,7 @@ export default {
 }
 #sidebar-icon {
   margin: 20px;
-  padding: 6px 0px 6px 12px;
+  padding: 6px 12px;
   cursor: pointer;
   background: white;
   border-radius: 5px;
@@ -40,6 +40,7 @@ export default {
 #sidebar-list {
   background: white;
   padding: 10px;
+  border-radius: 5px;
 }
 .sidebar-list-card {
   cursor: pointer;

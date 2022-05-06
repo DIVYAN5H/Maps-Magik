@@ -64,15 +64,15 @@ export default {
         // make a marker for each feature and add to the map
         new mapboxgl.Marker(el).setLngLat(LngLat).addTo(this.map);
 
-        // adding pop for marker
-        new mapboxgl.Marker(el)
-          .setLngLat(LngLat)
-          .setPopup(
-            new mapboxgl.Popup({ offset: 25 }).setHTML(
-              `<img class="marker-photo" src="${marker.photoUrl}"/><h3>${marker.name}</h3>`
-            )
-          )
-          .addTo(this.map);
+        // // adding pop for marker
+        // new mapboxgl.Marker(el)
+        //   .setLngLat(LngLat)
+        //   .setPopup(
+        //     new mapboxgl.Popup({ offset: 25 }).setHTML(
+        //       `<img class="marker-photo" src="${marker.photoUrl}"/><h3>${marker.name}</h3>`
+        //     )
+        //   )
+        //   .addTo(this.map);
       });
     },
   },
@@ -86,6 +86,9 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 #map {
   height: 100vh;
