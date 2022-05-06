@@ -5,7 +5,12 @@
       <div v-for="user in showMarkers" class="search-result">
         {{ user.name }}
       </div>
-      <div v-if="showMarkers.length == 0 && input.length > 0" class="search-result">No such user</div>
+      <div
+        v-if="showMarkers.length == 0 && input.length > 0"
+        class="search-result"
+      >
+        No such user
+      </div>
     </div>
   </div>
 </template>

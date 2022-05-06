@@ -6,13 +6,15 @@
       :addMarkers="addMarkers"
       @updateMarkers="addMarkers($event)"
     />
+    <SideBar :allMarkers="allMarkers" />
   </div>
 </template>
 
 <script>
-import SearchBar from "~/components/Search.vue";
+import SearchBar from "~/components/TempA.vue";
+import SideBar from "~/components/TempB.vue";
 export default {
-  components: { SearchBar },
+  components: { SearchBar, SideBar },
   name: "DepotsMap",
   data() {
     return {

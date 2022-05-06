@@ -15,4 +15,4 @@ This repositry contains a project for Magik.so
 - Linking DB to get user data.
 
 ## Notes
-loc:12 of components/search.vue shows error in ide but works as expected in application
+loc:12 of components/TempA.vue and loc:7 of TempB shows error in ide but works as expected in application
