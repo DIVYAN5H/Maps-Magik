@@ -1,31 +1,22 @@
 <template>
   <div>
     <div id="map"></div>
-    <div class="search">
-      <input v-model="input" @input="searchUsers()" class="search-box" type="text" />
-      <div id="search-results">
-        <div
-          v-if="input.length > 0"
-          v-for="user in showMarkers"
-          class="search-result"
-        >
-          {{ user.name }}
-        </div>
-        <div v-if="showMarkers.length == 0">no such user</div>
-      </div>
-    </div>
+    <SearchBar
+      :allMarkers="allMarkers"
+      :addMarkers="addMarkers"
+      @updateMarkers="addMarkers($event)"
+    />
   </div>
 </template>
 
 <script>
+import SearchBar from "~/components/Search.vue";
 export default {
+  components: { SearchBar },
   name: "DepotsMap",
   data() {
     return {
       allMarkers: [],
-      showMarkers: [],
-      lastSearch: "",
-      input: "",
     };
   },
   mounted() {
@@ -35,6 +26,7 @@ export default {
       accessToken:
         "pk.eyJ1IjoiZGl2eWFuNWgiLCJhIjoiY2wyc3EzeWhvMDEzeDNrbjJndHNxNG9kMiJ9.xz5kTfAAHPpP0kG3P_qzHg",
       container: "map",
+      attributionControl: false,
       style: "mapbox://styles/mapbox/light-v9",
       center: [77.2, 28.6],
       zoom: 3,
@@ -46,13 +38,12 @@ export default {
       .then((res) => res.json())
       .then((data) => {
         this.allMarkers = data;
-        this.showMarkers = data;
         // adding all markers
-        this.addMarkers();
+        this.addMarkers(data);
       });
   },
   methods: {
-    addMarkers() {
+    addMarkers(arr) {
       //removing any existing markers
       let exMarkers = Array.from(document.getElementsByClassName("marker"));
       exMarkers.map((marker) => {
@@ -61,7 +52,7 @@ export default {
 
       const mapboxgl = require("mapbox-gl");
 
-      this.showMarkers.map((marker) => {
+      arr.map((marker) => {
         const LngLat = [marker.location.lng, marker.location.lat];
         // adding markers to map
         const el = document.createElement("div");
@@ -82,26 +73,6 @@ export default {
           .addTo(this.map);
       });
     },
-    searchUsers() {
-      if (this.lastSearch.length > this.input.length) {
-        //--- Run for each user to check even eleminated earlier
-        this.showMarkers = [];
-        this.allMarkers.map((marker) => {
-          // console.log("Checked every marker");
-          if (marker.name.toLowerCase().startsWith(this.input.toLowerCase()))
-            this.showMarkers.push(marker);
-        });
-        this.addMarkers();
-      } else {
-        //--- Only run on already skimmed array but doesn't work if backspaced
-        this.showMarkers = this.showMarkers.filter((marker) => {
-          // console.log("Skimmed exisiting marker");
-          return marker.name.toLowerCase().startsWith(this.input.toLowerCase());
-        });
-        this.addMarkers();
-      }
-      this.lastSearch = this.input;
-    },
   },
 };
 </script>
@@ -115,7 +86,7 @@ export default {
   box-sizing: border-box;
 }
 #map {
-  height: 75vh;
+  height: 100vh;
 }
 .marker {
   background: black;
