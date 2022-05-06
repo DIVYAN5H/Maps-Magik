@@ -1,9 +1,9 @@
 <template>
   <div id="search">
-    <input v-model="input" @input="searchUsers()" id="search-box" type="text" />
+    <input v-model="input" @input="searchUsers()" id="search-box" type="text" autocomplete="false"/>
     <div v-if="input.length > 0" id="search-results">
-      <div v-for="user in showMarkers" class="search-result">
-        {{ user.name }}
+      <div v-for="user in showMarkers.slice(0,20)" class="search-result" :key="user.id">
+        {{ user.fullName }}
       </div>
       <div
         v-if="showMarkers.length == 0 && input.length > 0"
@@ -16,8 +16,9 @@
 </template>
 
 <script>
+
 export default {
-  name: "SearchBar",
+  fullName: "SearchBar",
   data() {
     return {
       input: "",
@@ -31,7 +32,7 @@ export default {
       // Simple but Flaw in this approach
       //   this.showMarkers = [];
       //   this.allMarkers.map((marker) => {
-      //     if (marker.name.toLowerCase().startsWith(this.input.toLowerCase()))
+      //     if (marker.fullName.toLowerCase().startsWith(this.input.toLowerCase()))
       //       this.showMarkers.push(marker);
       //   });
       //   this.$emit("updateMarkers", this.showMarkers);
@@ -44,17 +45,17 @@ export default {
         //--- Only run on already skimmed array but doesn't work if backspaced
         this.showMarkers = this.showMarkers.filter((marker) => {
           //   console.log("Skimmed exisiting marker");
-          return marker.name.toLowerCase().startsWith(this.input.toLowerCase());
+          return marker.fullName.toLowerCase().startsWith(this.input.toLowerCase());
         });
       } else {
         this.showMarkers = this.allMarkers;
         this.showMarkers = this.showMarkers.filter((marker) => {
           //   console.log("Checked every marker");
-          return marker.name.toLowerCase().startsWith(this.input.toLowerCase());
+          return marker.fullName.toLowerCase().startsWith(this.input.toLowerCase());
         });
       }
       this.lastSearch = this.input;
-      this.$emit("updateMarkers", this.showMarkers);
+      this.$emit("updateMarkers", this.showMarkers.slice(0,20));
     },
   },
 };

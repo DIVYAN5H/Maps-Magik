@@ -5,14 +5,11 @@
 This repositry contains a project for Magik.so
 
 ## Progress
-- A map show marker on the basis of local user data.
-- We can search and skim the number of markers.
-- A list of name is shown while searching.
+- A map show marker on the basis of data.
+- A list of name from DB is shown while searching.
 
 ## Pending
 - Show all details when hover over a marker.
 - Improve UI.
-- Linking DB to get user data.
-
-## Notes
-loc:12 of components/TempA.vue and loc:7 of TempB shows error in ide but works as expected in application
+- Using algolia search to filter markers
+- Improving search result of algolia

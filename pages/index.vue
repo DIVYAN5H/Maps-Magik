@@ -1,20 +1,23 @@
 <template>
   <div>
     <div id="map"></div>
-    <SearchBar
+    <!-- <SearchBar
       :allMarkers="allMarkers"
       :addMarkers="addMarkers"
       @updateMarkers="addMarkers($event)"
-    />
+    /> -->
     <SideBar :allMarkers="allMarkers" />
+    <AlgoliaSearch />
   </div>
 </template>
 
 <script>
 import SearchBar from "~/components/TempA.vue";
 import SideBar from "~/components/TempB.vue";
+import AlgoliaSearch from "~/components/TempC.vue";
+
 export default {
-  components: { SearchBar, SideBar },
+  components: { SearchBar, SideBar, AlgoliaSearch },
   name: "DepotsMap",
   data() {
     return {
@@ -55,11 +58,11 @@ export default {
       const mapboxgl = require("mapbox-gl");
 
       arr.map((marker) => {
-        const LngLat = [marker.location.lng, marker.location.lat];
+        const LngLat = [marker.locationlng, marker.locationlat];
         // adding markers to map
         const el = document.createElement("div");
         el.className = "marker";
-        el.innerHTML = `<img class="marker-photo" src="${marker.photoUrl}"/>`;
+        el.innerHTML = `<img class="marker-photo" src="${marker.photo}"/>`;
 
         // make a marker for each feature and add to the map
         new mapboxgl.Marker(el).setLngLat(LngLat).addTo(this.map);
