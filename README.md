@@ -11,5 +11,5 @@ This repositry contains a project for Magik.so
 ## Pending
 - Show all details when hover over a marker.
 - Improve UI.
-- Using algolia search to filter markers
-- Improving search result of algolia
+- Remove Typo Tolerance in results of algolia
+- Add SideBar
