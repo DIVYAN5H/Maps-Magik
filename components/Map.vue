@@ -9,48 +9,57 @@
 
 <script>
 export default {
-  props: ['markers'],
+  props: ["markers"],
   mounted() {
     // Planting Initial Map
-    const mapboxgl = require('mapbox-gl')
+    const mapboxgl = require("mapbox-gl");
     this.map = new mapboxgl.Map({
       accessToken:
-        'pk.eyJ1IjoiZGl2eWFuNWgiLCJhIjoiY2wyc3EzeWhvMDEzeDNrbjJndHNxNG9kMiJ9.xz5kTfAAHPpP0kG3P_qzHg',
-      container: 'map',
+        "pk.eyJ1IjoiZGl2eWFuNWgiLCJhIjoiY2wyc3EzeWhvMDEzeDNrbjJndHNxNG9kMiJ9.xz5kTfAAHPpP0kG3P_qzHg",
+      container: "map",
       attributionControl: false,
-      style: 'mapbox://styles/mapbox/light-v9',
+      style: "mapbox://styles/mapbox/light-v9",
       center: [77.2, 28.6],
       zoom: 3,
       pitch: 0,
-    })
+    });
   },
   updated() {
     //removing any existing markers
-    let exMarkers = Array.from(document.getElementsByClassName('marker'))
+    let exMarkers = Array.from(document.getElementsByClassName("marker"));
     exMarkers.map((marker) => {
-      marker.parentNode.removeChild(marker)
-    })
+      marker.parentNode.removeChild(marker);
+    });
 
-    const mapboxgl = require('mapbox-gl')
+    const mapboxgl = require("mapbox-gl");
 
     this.markers.map((marker) => {
-      const LngLat = [marker['location.lng'], marker['location.lat']]
+      const LngLat = [marker["location.lng"], marker["location.lat"]];
       // adding markers to map
-      const el = document.createElement('div')
-      el.className = 'marker'
+      const el = document.createElement("div");
+      el.className = "marker";
       el.innerHTML = `
       <img class="marker-photo" src="${marker.photo}"/>
       <p>${marker.fullName}</p>
-      `
+      `;
 
       // make a marker for each feature and add to the map
-      new mapboxgl.Marker(el).setLngLat(LngLat).addTo(this.map)
-    })
+      new mapboxgl.Marker(el).setLngLat(LngLat).addTo(this.map);
+    });
   },
-}
+  head: {
+    link: [
+      {
+        rel: "stylesheet",
+        href: "https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css",
+      },
+    ],
+  },
+};
 </script>
+
 <style>
-@import url('https://api.tiles.mapbox.com/mapbox-gl-js/v0.45.0/mapbox-gl.css');
+@import url("https://api.tiles.mapbox.com/mapbox-gl-js/v0.45.0/mapbox-gl.css");
 
 #map {
   position: absolute;
