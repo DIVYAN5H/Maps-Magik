@@ -38,6 +38,11 @@ export default {
       // adding markers to map
       const el = document.createElement("div");
       el.className = "marker";
+
+      if (!marker.photo) {
+        marker.photo = "https://robohash.org/EUX.png?set=set1&size=64x64";
+      }
+
       el.innerHTML = `
       <img class="marker-photo" src="${marker.photo}"/>
       <p>${marker.fullName}</p>

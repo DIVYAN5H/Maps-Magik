@@ -5,6 +5,7 @@
         <ais-search-box placeholder="Search here…" class="searchbox" />
         <ais-hits :transform-items="transformItems" class="search-result" />
         <div class="search-result-list">
+          <div v-if="markers.length == 0" class="search-result-card">No Such User/Company</div>
           <div v-for="marker in markers" :key="marker.objectId">
             <div class="search-result-card">
               <div class="search-result-card-name">
@@ -23,13 +24,13 @@
 </template>
 
 <script>
-import { AisInstantSearch, AisSearchBox, AisHits } from 'vue-instantsearch'
-import algoliasearch from 'algoliasearch/lite'
-import 'instantsearch.css/themes/algolia-min.css'
-import Map from '~/components/Map.vue'
+import { AisInstantSearch, AisSearchBox, AisHits } from "vue-instantsearch";
+import algoliasearch from "algoliasearch/lite";
+import "instantsearch.css/themes/algolia-min.css";
+import Map from "~/components/Map.vue";
 
 export default {
-  name: 'IndexPage',
+  name: "IndexPage",
   components: {
     AisInstantSearch,
     AisSearchBox,
@@ -39,23 +40,25 @@ export default {
   data() {
     return {
       searchClient: algoliasearch(
-        'ZFBW2IRNZ0',
-        'ada9174d49c8779e6826e896c2e1418d'
+        "ZFBW2IRNZ0",
+        "ada9174d49c8779e6826e896c2e1418d"
       ),
       markers: [],
-    }
+    };
   },
   methods: {
     transformItems(items) {
-      this.markers = items
-
+      this.markers = [];
+      items.map((item) => {
+        if (item["location.lat"] && item["location.lng"])
+          this.markers.push(item);
+      });
       return items.map((item) => ({
         ...item,
-        name: item.fullName.toUpperCase(),
-      }))
+      }));
     },
   },
-}
+};
 </script>
 
 <style >
