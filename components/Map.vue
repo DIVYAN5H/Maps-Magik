@@ -49,8 +49,9 @@ export default {
   },
 }
 </script>
-<style scoped>
+<style>
 @import url('https://api.tiles.mapbox.com/mapbox-gl-js/v0.45.0/mapbox-gl.css');
+
 #map {
   position: absolute;
   top: 0;
