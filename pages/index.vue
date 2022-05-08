@@ -110,8 +110,10 @@ export default {
 }
 .searchbox {
   z-index: 1;
-  margin: 20px 0px 0px 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 40vw;
+  max-width: 400px;
+  margin: 35px 0px 0px 45px;
+  box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 }
 input {
@@ -126,9 +128,9 @@ input {
   height: auto;
   max-height: 50vh;
   overflow-y: auto;
-  margin: 0px 0px 0px 20px;
+  margin: 10px 0px 0px 45px;
   border-radius: 5px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
 }
 
 .search-result-list::-webkit-scrollbar {

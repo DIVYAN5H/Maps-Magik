@@ -26,7 +26,7 @@ export default {
     focused: function () {
       this.map.flyTo({
         center: this.focused,
-        zoom: 11,
+        zoom: 12,
       });
     },
     markers: function () {
@@ -84,9 +84,6 @@ export default {
 }
 .mapboxgl-ctrl {
   display: none !important;
-}
-.marker:hover {
-  box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.4), 0 0px 10px 0 rgba(0, 0, 0, 0.36);
 }
 .marker{
   cursor: pointer;
