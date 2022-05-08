@@ -26,7 +26,7 @@ export default {
     focused: function () {
       this.map.flyTo({
         center: this.focused,
-        zoom: 10,
+        zoom: 11,
       });
     },
     markers: function () {
@@ -50,7 +50,10 @@ export default {
 
         el.innerHTML = `
       <img class="marker-photo" src="${marker.photo}"/>
+      <div class="marker-content">
       <p class="marker-name">${marker.fullName}</p>
+      <p class="marker-company">${marker.companyName}</p>
+      </div>
       `;
 
         // make a marker for each feature and add to the map
@@ -81,5 +84,28 @@ export default {
 }
 .mapboxgl-ctrl {
   display: none !important;
+}
+.marker:hover {
+  box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.4), 0 0px 10px 0 rgba(0, 0, 0, 0.36);
+}
+.marker{
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  padding: 8px;
+  border-radius: 5px;
+  box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.2), 0 0px 10px 0 rgba(0, 0, 0, 0.19);
+}
+.marker-photo {
+  background: rgba(48, 44, 44, 0.411);
+  border-radius: 50%;
+}
+.marker-content {
+  margin-left: 10px;
+}
+.marker-company {
+  color: gray;
 }
 </style>

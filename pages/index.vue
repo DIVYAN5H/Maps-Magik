@@ -4,12 +4,13 @@
       <ais-instant-search :search-client="searchClient" index-name="Maps_Magik">
         <ais-search-box placeholder="Search Name/Company" class="searchbox" />
         <ais-hits :transform-items="transformItems" class="search-result" />
+        <ais-configure />
         <div v-if="showResult" class="search-result-list">
           <div v-if="input">
             <div v-if="markers.length == 0" class="search-result-card">
               No Such User/Company
             </div>
-            <div v-for="marker in markers" :key="marker.objectId">
+            <div v-for="marker in markers" :key="marker.id">
               <div class="search-result-card" @click="centerMap(marker)">
                 <div class="search-result-card-name">
                   <p>{{ marker.fullName }}</p>
@@ -28,7 +29,12 @@
 </template>
 
 <script>
-import { AisInstantSearch, AisSearchBox, AisHits } from "vue-instantsearch";
+import {
+  AisInstantSearch,
+  AisSearchBox,
+  AisHits,
+  AisConfigure,
+} from "vue-instantsearch";
 import algoliasearch from "algoliasearch/lite";
 import "instantsearch.css/themes/algolia-min.css";
 import Map from "~/components/Map.vue";
@@ -39,6 +45,7 @@ export default {
     AisInstantSearch,
     AisSearchBox,
     AisHits,
+    AisConfigure,
     Map,
   },
   data() {
@@ -69,7 +76,8 @@ export default {
           if (item["location.lat"] && item["location.lng"])
             this.markers.push(item);
         });
-        return items.map((item) => ({
+
+        return this.markers.map((item) => ({
           ...item,
         }));
       }
@@ -103,6 +111,8 @@ export default {
 .searchbox {
   z-index: 1;
   margin: 20px 0px 0px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
 }
 input {
   outline: none;
@@ -117,6 +127,8 @@ input {
   max-height: 50vh;
   overflow-y: auto;
   margin: 0px 0px 0px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .search-result-list::-webkit-scrollbar {
@@ -130,7 +142,7 @@ input {
 .search-result-card {
   cursor: pointer;
   padding: 5px 20px;
-  border-bottom: 1px solid gray;
+  border-top: 1px solid rgba(128, 128, 128, 0.45);
 }
 .search-result-card-company {
   color: gray;
