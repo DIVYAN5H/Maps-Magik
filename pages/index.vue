@@ -12,8 +12,9 @@
             </div>
             <div v-for="marker in markers" :key="marker.id">
               <div class="search-result-card" @click="centerMap(marker)">
-                <div class="search-result-card-name">
-                  <p>{{ marker.fullName }}</p>
+                <div>
+                  <span class="search-result-card-name">{{ marker.fullName }} - </span>
+                  <span class="search-result-card-location">{{ marker.companyName }}</span>
                 </div>
                 <div class="search-result-card-location">
                   <p>
