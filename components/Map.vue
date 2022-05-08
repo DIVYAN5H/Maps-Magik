@@ -1,9 +1,6 @@
 <template>
   <div>
     <div id="map"></div>
-    <div v-if="markers.length > 0">
-      <div v-for="marker in markers" :key="marker.id"></div>
-    </div>
   </div>
 </template>
 
@@ -24,39 +21,40 @@ export default {
       pitch: 0,
     });
   },
-  updated() {
-    //removing any existing markers
-    let exMarkers = Array.from(document.getElementsByClassName("marker"));
-    exMarkers.map((marker) => {
-      marker.parentNode.removeChild(marker);
-    });
-
-    const mapboxgl = require("mapbox-gl");
-
-    this.markers.map((marker) => {
-      const LngLat = [marker["location.lng"], marker["location.lat"]];
-      // adding markers to map
-      const el = document.createElement("div");
-      el.className = "marker";
-
-      if (!marker.photo) {
-        marker.photo = "https://robohash.org/EUX.png?set=set1&size=64x64";
-      }
-
-      el.innerHTML = `
-      <img class="marker-photo" src="${marker.photo}"/>
-      <p class="marker-name">${marker.fullName}</p>
-      `;
-
-      // make a marker for each feature and add to the map
-      new mapboxgl.Marker(el).setLngLat(LngLat).addTo(this.map);
-    });
-  },
+  // Moving map if clicked on a result
   watch: {
     focused: function () {
       this.map.flyTo({
         center: this.focused,
         zoom: 10,
+      });
+    },
+    markers: function () {
+      //removing any existing markers
+      let exMarkers = Array.from(document.getElementsByClassName("marker"));
+      exMarkers.map((marker) => {
+        marker.parentNode.removeChild(marker);
+      });
+
+      const mapboxgl = require("mapbox-gl");
+
+      this.markers.map((marker) => {
+        const LngLat = [marker["location.lng"], marker["location.lat"]];
+        // adding markers to map
+        const el = document.createElement("div");
+        el.className = "marker";
+
+        if (!marker.photo) {
+          marker.photo = "https://robohash.org/EUX.png?set=set1&size=64x64";
+        }
+
+        el.innerHTML = `
+      <img class="marker-photo" src="${marker.photo}"/>
+      <p class="marker-name">${marker.fullName}</p>
+      `;
+
+        // make a marker for each feature and add to the map
+        new mapboxgl.Marker(el).setLngLat(LngLat).addTo(this.map);
       });
     },
   },

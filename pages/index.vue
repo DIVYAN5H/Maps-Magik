@@ -48,15 +48,19 @@ export default {
         "ada9174d49c8779e6826e896c2e1418d"
       ),
       markers: [],
+      input: "",
       focused: [],
     };
   },
   methods: {
     transformItems(items) {
+      // Getting input value so show or hide results
       let input = Array.from(
         document.getElementsByClassName("ais-SearchBox-input")
       )[0]?.value;
       this.input = input;
+
+      // Getting all markers that are results
       this.markers = [];
       if (this.input) {
         items.map((item) => {
@@ -68,6 +72,7 @@ export default {
         }));
       }
     },
+    // Getting cooridates of marker choosen from results
     centerMap(marker) {
       let LngLat = [marker["location.lng"], marker["location.lat"]];
       this.focused = LngLat;
