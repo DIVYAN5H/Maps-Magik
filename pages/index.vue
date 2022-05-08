@@ -90,8 +90,7 @@ export default {
             noMatchMarkers.push(el);
           }
         });
-        this.markers = matchMarkers;
-        this.markers.apply(this.markers, noMatchMarkers);
+        this.markers = [...matchMarkers, ...noMatchMarkers];
 
         return this.markers.map((item) => ({
           ...item,
