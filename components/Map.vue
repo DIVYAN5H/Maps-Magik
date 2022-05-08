@@ -56,6 +56,7 @@ export default {
     focused: function () {
       this.map.flyTo({
         center: this.focused,
+        zoom: 10,
       });
     },
   },
