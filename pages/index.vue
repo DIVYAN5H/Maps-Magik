@@ -1,23 +1,27 @@
 <template>
   <div id="root">
-    <div class="search-container">
+    <div class="container">
       <ais-instant-search :search-client="searchClient" index-name="Maps_Magik">
-        <ais-search-box placeholder="Search here…" class="searchbox" />
+        <ais-search-box placeholder="Search Name/Company" class="searchbox" />
         <ais-hits :transform-items="transformItems" class="search-result" />
         <div class="search-result-list">
-          <div v-if="markers.length == 0" class="search-result-card">No Such User/Company</div>
-          <div v-for="marker in markers" :key="marker.objectId">
-            <div class="search-result-card">
-              <div class="search-result-card-name">
-                <p>{{ marker.fullName }}</p>
-              </div>
-              <div class="search-result-card-company">
-                <p>{{ marker.companyName }}</p>
+          <div v-if="input">
+            <div v-if="markers.length == 0" class="search-result-card">
+              No Such User/Company
+            </div>
+            <div v-for="marker in markers" :key="marker.objectId">
+              <div class="search-result-card" @click="centerMap(marker)">
+                <div class="search-result-card-name">
+                  <p>{{ marker.fullName }}</p>
+                </div>
+                <div class="search-result-card-company">
+                  <p>{{ marker.companyName }}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <Map :markers="markers" />
+        <Map :markers="markers" :focused="focused" />
       </ais-instant-search>
     </div>
   </div>
@@ -44,18 +48,29 @@ export default {
         "ada9174d49c8779e6826e896c2e1418d"
       ),
       markers: [],
+      focused: [],
     };
   },
   methods: {
     transformItems(items) {
+      let input = Array.from(
+        document.getElementsByClassName("ais-SearchBox-input")
+      )[0]?.value;
+      this.input = input;
       this.markers = [];
-      items.map((item) => {
-        if (item["location.lat"] && item["location.lng"])
-          this.markers.push(item);
-      });
-      return items.map((item) => ({
-        ...item,
-      }));
+      if (this.input) {
+        items.map((item) => {
+          if (item["location.lat"] && item["location.lng"])
+            this.markers.push(item);
+        });
+        return items.map((item) => ({
+          ...item,
+        }));
+      }
+    },
+    centerMap(marker) {
+      let LngLat = [marker["location.lng"], marker["location.lat"]];
+      this.focused = LngLat;
     },
   },
 };
@@ -67,30 +82,42 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
-.ais-Highlight-highlighted {
-  background: rgb(134, 27, 102);
-  color: white;
-  font-style: normal;
-}
 
-.search-container {
+.container {
   margin: 0 auto;
   position: absolute;
   top: 0;
 }
 .searchbox {
   z-index: 1;
+  margin: 20px 0px 0px 20px;
+}
+input {
+  outline: none;
 }
 .search-result {
   display: none;
 }
 .search-result-list {
   background: white;
-  height: 50vh;
+  height: auto;
+  max-height: 50vh;
   overflow-y: auto;
+  margin: 0px 0px 0px 20px;
 }
+
+.search-result-list::-webkit-scrollbar {
+  display: none;
+}
+.search-result-list {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .search-result-card {
+  cursor: pointer;
   padding: 5px 20px;
+  border-bottom: 1px solid gray;
 }
 .search-result-card-company {
   color: gray;

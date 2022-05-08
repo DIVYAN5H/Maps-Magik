@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  props: ["markers"],
+  props: ["markers", "focused"],
   mounted() {
     // Planting Initial Map
     const mapboxgl = require("mapbox-gl");
@@ -20,7 +20,7 @@ export default {
       attributionControl: false,
       style: "mapbox://styles/mapbox/light-v9",
       center: [77.2, 28.6],
-      zoom: 3,
+      zoom: 7,
       pitch: 0,
     });
   },
@@ -45,12 +45,19 @@ export default {
 
       el.innerHTML = `
       <img class="marker-photo" src="${marker.photo}"/>
-      <p>${marker.fullName}</p>
+      <p class="marker-name">${marker.fullName}</p>
       `;
 
       // make a marker for each feature and add to the map
       new mapboxgl.Marker(el).setLngLat(LngLat).addTo(this.map);
     });
+  },
+  watch: {
+    focused: function () {
+      this.map.flyTo({
+        center: this.focused,
+      });
+    },
   },
   head: {
     link: [
@@ -72,5 +79,8 @@ export default {
   z-index: -1;
   height: 100vh;
   width: 100vw;
+}
+.mapboxgl-ctrl {
+  display: none !important;
 }
 </style>
