@@ -4,7 +4,7 @@
       <ais-instant-search :search-client="searchClient" index-name="Maps_Magik">
         <ais-search-box placeholder="Search Name/Company" class="searchbox" />
         <ais-hits :transform-items="transformItems" class="search-result" />
-        <div class="search-result-list">
+        <div v-if="showResult" class="search-result-list">
           <div v-if="input">
             <div v-if="markers.length == 0" class="search-result-card">
               No Such User/Company
@@ -50,10 +50,12 @@ export default {
       markers: [],
       input: "",
       focused: [],
+      showResult: true,
     };
   },
   methods: {
     transformItems(items) {
+      this.showResult = true;
       // Getting input value so show or hide results
       let input = Array.from(
         document.getElementsByClassName("ais-SearchBox-input")
@@ -74,6 +76,11 @@ export default {
     },
     // Getting cooridates of marker choosen from results
     centerMap(marker) {
+      this.showResult = false;
+      let inputField = Array.from(
+        document.getElementsByClassName("ais-SearchBox-input")
+      )[0];
+      inputField.value = marker.fullName;
       let LngLat = [marker["location.lng"], marker["location.lat"]];
       this.focused = LngLat;
     },
@@ -100,7 +107,8 @@ export default {
 input {
   outline: none;
 }
-.search-result {
+.search-result,
+.ais-SearchBox-reset {
   display: none;
 }
 .search-result-list {
