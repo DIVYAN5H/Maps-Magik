@@ -80,19 +80,6 @@ export default {
             this.markers.push(item);
         });
 
-        // Re-odering markers array
-        let matchMarkers = [];
-        let noMatchMarkers = [];
-        this.markers.map((el) => {
-          if (el.fullName.toUpperCase().startsWith(input.toUpperCase())) {
-            matchMarkers.push(el);
-          } else {
-            noMatchMarkers.push(el);
-          }
-        });
-        this.markers = matchMarkers;
-        this.markers.apply(this.markers, noMatchMarkers);
-
         return this.markers.map((item) => ({
           ...item,
         }));
