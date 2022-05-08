@@ -15,8 +15,11 @@
                 <div class="search-result-card-name">
                   <p>{{ marker.fullName }}</p>
                 </div>
-                <div class="search-result-card-company">
-                  <p>{{ marker.companyName }}</p>
+                <div class="search-result-card-location">
+                  <p>
+                    {{ marker["location.city"] }},
+                    {{ marker["location.country"] }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -146,7 +149,7 @@ input {
   padding: 5px 20px;
   border-top: 1px solid rgba(128, 128, 128, 0.45);
 }
-.search-result-card-company {
+.search-result-card-location {
   color: gray;
   font-size: 0.75rem;
 }
