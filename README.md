@@ -11,4 +11,4 @@ This repositry contains a project for Magik.so
 
 ## Pending
 - Improve UI.
-- Remove Typo Tolerance in results of algolia
+- Set a way to priortize matches in algolia results.
