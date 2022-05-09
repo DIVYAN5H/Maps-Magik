@@ -31,8 +31,8 @@
             </div>
           </div>
         </div>
+        <ais-pagination v-if="markers.length > 15" />
         <Map :markers="markers" :focused="focused" />
-        <ais-pagination />
       </ais-configure>
     </ais-instant-search>
   </div>
