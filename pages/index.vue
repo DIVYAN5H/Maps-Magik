@@ -110,7 +110,6 @@ export default {
     },
     // Getting cooridates of marker choosen from results
     centerMap(marker) {
-      this.showResult = false;
       let inputField = Array.from(
         document.getElementsByClassName("ais-SearchBox-input")
       )[0];
