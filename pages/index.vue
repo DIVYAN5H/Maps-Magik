@@ -1,12 +1,11 @@
 <template>
   <div id="root">
-    <div class="container">
-      <ais-instant-search :search-client="searchClient" index-name="Maps_Magik">
-        <ais-configure>
-          <ais-search-box placeholder="Search Name/Company" class="searchbox" />
-          <ais-hits :transform-items="transformItems" class="search-result" />
-          <div v-if="showResult" class="search-result-list">
-            <!-- <div v-if="input"> -->
+    <ais-instant-search :search-client="searchClient" index-name="Maps_Magik">
+      <ais-configure>
+        <ais-search-box placeholder="Search Name/Company" class="searchbox" />
+        <ais-hits :transform-items="transformItems" class="search-result" />
+        <div v-if="showResult" class="search-result-list">
+          <div v-if="input">
             <div v-if="markers.length == 0" class="search-result-card">
               No Such User/Company
             </div>
@@ -17,9 +16,9 @@
                     <span class="search-result-card-name"
                       >{{ marker.fullName }} -
                     </span>
-                    <span class="search-result-card-location">{{
-                      marker.companyName
-                    }}</span>
+                    <span class="search-result-card-location"
+                      >{{ marker.designation }},{{ marker.companyName }}</span
+                    >
                   </div>
                   <div class="search-result-card-location">
                     <p>
@@ -29,14 +28,13 @@
                   </div>
                 </div>
               </div>
-              <ais-pagination />
             </div>
-            <!-- </div> -->
           </div>
-          <Map :markers="markers" :focused="focused" />
-        </ais-configure>
-      </ais-instant-search>
-    </div>
+        </div>
+        <Map :markers="markers" :focused="focused" />
+        <ais-pagination />
+      </ais-configure>
+    </ais-instant-search>
   </div>
 </template>
 
@@ -90,30 +88,17 @@ export default {
           this.markers.push(item);
       });
 
-      // Re-odering markers array if input
-      if (this.input) {
-        let matchMarkers = [];
-        let noMatchMarkers = [];
-        this.markers.map((el) => {
-          if (el.fullName.toUpperCase().startsWith(input.toUpperCase())) {
-            matchMarkers.push(el);
-          } else {
-            noMatchMarkers.push(el);
-          }
-        });
-        this.markers = [...matchMarkers, ...noMatchMarkers];
-      }
-
       return this.markers.map((item) => ({
         ...item,
       }));
     },
     // Getting cooridates of marker choosen from results
     centerMap(marker) {
-      let inputField = Array.from(
-        document.getElementsByClassName("ais-SearchBox-input")
-      )[0];
-      inputField.value = marker.fullName;
+      // Entering name in the field
+      // let inputField = Array.from(
+      //   document.getElementsByClassName("ais-SearchBox-input")
+      // )[0];
+      // inputField.value = marker.fullName;
       let LngLat = [marker["location.lng"], marker["location.lat"]];
       this.focused = LngLat;
     },
@@ -122,10 +107,12 @@ export default {
 </script>
 
 <style >
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
 }
 
 .container {
@@ -152,6 +139,8 @@ input {
   background: white;
   height: auto;
   max-height: 50vh;
+  min-width: 400px;
+  max-width: max-content;
   overflow-y: auto;
   margin: 10px 0px 0px 45px;
   border-radius: 5px;
@@ -174,5 +163,15 @@ input {
 .search-result-card-location {
   color: gray;
   font-size: 0.75rem;
+}
+.ais-Pagination {
+  position: absolute;
+  bottom: 20px;
+  left: 50vw;
+  transform: translateX(-50%);
+  background: white;
+  box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.2), 0 0px 10px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+  padding: 2px;
 }
 </style>

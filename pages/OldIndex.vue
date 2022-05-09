@@ -2,31 +2,37 @@
   <div id="root">
     <div class="container">
       <ais-instant-search :search-client="searchClient" index-name="Maps_Magik">
-        <ais-search-box placeholder="Search Name/Company" class="searchbox" />
-        <ais-hits :transform-items="transformItems" class="search-result" />
-        <ais-configure />
-        <div v-if="showResult" class="search-result-list">
-          <div v-if="input">
-            <div v-if="markers.length == 0" class="search-result-card">
-              No Such User/Company
-            </div>
-            <div v-for="marker in markers" :key="marker.id">
-              <div class="search-result-card" @click="centerMap(marker)">
-                <div>
-                  <span class="search-result-card-name">{{ marker.fullName }} - </span>
-                  <span class="search-result-card-location">{{ marker.companyName }}</span>
+        <ais-configure>
+          <ais-search-box placeholder="Search Name/Company" class="searchbox" />
+          <ais-hits :transform-items="transformItems" class="search-result" />
+          <div v-if="showResult" class="search-result-list">
+            <div v-if="input">
+              <div v-if="markers.length == 0" class="search-result-card">
+                No Such User/Company
+              </div>
+              <div v-else>
+                <div v-for="marker in markers" :key="marker.id">
+                  <div class="search-result-card" @click="centerMap(marker)">
+                    <div>
+                      <span class="search-result-card-name"
+                        >{{ marker.fullName }} -
+                      </span>
+                      <span class="search-result-card-location">{{ marker.designation }},{{marker.companyName}}</span>
+                    </div>
+                    <div class="search-result-card-location">
+                      <p>
+                        {{ marker["location.city"] }},
+                        {{ marker["location.country"] }}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div class="search-result-card-location">
-                  <p>
-                    {{ marker["location.city"] }},
-                    {{ marker["location.country"] }}
-                  </p>
-                </div>
+                <ais-pagination />
               </div>
             </div>
           </div>
-        </div>
-        <Map :markers="markers" :focused="focused" />
+          <Map :markers="markers" :focused="focused" />
+        </ais-configure>
       </ais-instant-search>
     </div>
   </div>
@@ -38,6 +44,7 @@ import {
   AisSearchBox,
   AisHits,
   AisConfigure,
+  AisPagination,
 } from "vue-instantsearch";
 import algoliasearch from "algoliasearch/lite";
 import "instantsearch.css/themes/algolia-min.css";
@@ -50,6 +57,7 @@ export default {
     AisSearchBox,
     AisHits,
     AisConfigure,
+    AisPagination,
     Map,
   },
   data() {
@@ -75,32 +83,17 @@ export default {
 
       // Getting all markers that are results
       this.markers = [];
-      if (this.input) {
-        items.map((item) => {
-          if (item["location.lat"] && item["location.lng"])
-            this.markers.push(item);
-        });
+      items.map((item) => {
+        if (item["location.lat"] && item["location.lng"])
+          this.markers.push(item);
+      });
 
-        // Re-odering markers array
-        let matchMarkers = [];
-        let noMatchMarkers = [];
-        this.markers.map((el) => {
-          if (el.fullName.toUpperCase().startsWith(input.toUpperCase())) {
-            matchMarkers.push(el);
-          } else {
-            noMatchMarkers.push(el);
-          }
-        });
-        this.markers = [...matchMarkers, ...noMatchMarkers];
-
-        return this.markers.map((item) => ({
-          ...item,
-        }));
-      }
+      return this.markers.map((item) => ({
+        ...item,
+      }));
     },
     // Getting cooridates of marker choosen from results
     centerMap(marker) {
-      this.showResult = false;
       let inputField = Array.from(
         document.getElementsByClassName("ais-SearchBox-input")
       )[0];

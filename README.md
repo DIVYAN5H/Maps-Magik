@@ -10,5 +10,5 @@ This repositry contains a project for Magik.so
 - When clicked on result it takes us to that marker on map.
 
 ## Pending
+- Edit configuration of algolia dashboard so it will show start with first
 - Improve UI.
-- Set a way to priortize matches in algolia results.
