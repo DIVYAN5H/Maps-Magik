@@ -95,10 +95,10 @@ export default {
     // Getting cooridates of marker choosen from results
     centerMap(marker) {
       // Entering name in the field
-      // let inputField = Array.from(
-      //   document.getElementsByClassName("ais-SearchBox-input")
-      // )[0];
-      // inputField.value = marker.fullName;
+      let inputField = Array.from(
+        document.getElementsByClassName("ais-SearchBox-input")
+      )[0];
+      inputField.value = marker.fullName;
       let LngLat = [marker["location.lng"], marker["location.lat"]];
       this.focused = LngLat;
     },
