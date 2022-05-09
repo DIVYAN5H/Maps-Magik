@@ -12,8 +12,9 @@
             </div>
             <div v-for="marker in markers" :key="marker.id">
               <div class="search-result-card" @click="centerMap(marker)">
-                <div class="search-result-card-name">
-                  <p>{{ marker.fullName }}</p>
+                <div>
+                  <span class="search-result-card-name">{{ marker.fullName }} - </span>
+                  <span class="search-result-card-location">{{ marker.companyName }}</span>
                 </div>
                 <div class="search-result-card-location">
                   <p>
@@ -79,6 +80,18 @@ export default {
           if (item["location.lat"] && item["location.lng"])
             this.markers.push(item);
         });
+
+        // Re-odering markers array
+        let matchMarkers = [];
+        let noMatchMarkers = [];
+        this.markers.map((el) => {
+          if (el.fullName.toUpperCase().startsWith(input.toUpperCase())) {
+            matchMarkers.push(el);
+          } else {
+            noMatchMarkers.push(el);
+          }
+        });
+        this.markers = [...matchMarkers, ...noMatchMarkers];
 
         return this.markers.map((item) => ({
           ...item,
